@@ -35,6 +35,15 @@ class AppRepository(IAppRepository):
         self.session.commit()
         return AppDataMapper.model_to_entity(app_model)
 
+    def persist(self, app: App) -> App | None:
+        app_model = self.session.query(AppModel).filter_by(app_id=app.app_id).one_or_none()
+        if not app_model:
+            return None
+        app_model.app_id = app.app_id
+        app_model.name = app.name
+        self.session.commit()
+        return AppDataMapper.model_to_entity(app_model)
+
     def remove(self, app_id: uuid.UUID) -> Optional[App]:
         app_model = self.session.query(AppModel).filter_by(app_id=app_id).one_or_none()
         if not app_model:

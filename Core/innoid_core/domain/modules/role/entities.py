@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 class Role(enum.Enum):
     ADMIN = "ADMIN"
-    TELEGRAM_CONNECTIONS_CREATOR = "TELEGRAM_CONNECTIONS_CREATOR"
+    SERVICE = "SERVICE"
     USER = "USER"
     APP = "APP"
 

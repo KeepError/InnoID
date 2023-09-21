@@ -32,6 +32,14 @@ class AppUseCase:
         app = self.app_repository.add(app)
         return app
 
+    def update(self, app_id: uuid.UUID, name: str) -> App:
+        app = self.app_repository.get_by_id(app_id)
+        if not app:
+            raise AppNotFoundError()
+        app.name = name
+        app = self.app_repository.persist(app)
+        return app
+
     def delete(self, app_id: uuid.UUID) -> App:
         app = self.app_repository.remove(app_id)
         if not app:

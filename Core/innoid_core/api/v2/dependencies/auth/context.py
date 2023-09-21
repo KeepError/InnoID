@@ -8,7 +8,7 @@ from domain.modules.role.entities import Role
 from domain.modules.role.usecases import UserRoleUseCase, AppRoleUseCase
 from domain.modules.user.entities import User
 from .subject import AuthenticationSubject, get_authentication_subject
-from ..use_cases import get_user_role_use_case, get_app_role_use_case
+from use_cases import get_user_role_use_case, get_app_role_use_case
 from ...errors import NotPermittedApiError
 
 
@@ -50,10 +50,10 @@ class AuthContextProvider:
         is_user = False
         is_app = False
         if auth_subject.user:
-            roles = user_role_use_case.get_user_roles(auth_subject.user.user_id)
+            roles += user_role_use_case.get_user_roles(auth_subject.user.user_id)
             is_user = True
-        elif auth_subject.app:
-            roles = app_role_use_case.get_app_roles(auth_subject.app.app_id)
+        if auth_subject.app:
+            roles += app_role_use_case.get_app_roles(auth_subject.app.app_id)
             is_app = True
         if not self.check_roles(roles, is_app, is_user):
             raise NotPermittedApiError()

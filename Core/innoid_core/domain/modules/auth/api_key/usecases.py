@@ -86,3 +86,9 @@ class AuthApiKeyUseCase:
         self.app_api_key_repository.remove(app_id)
 
         return self._generate_api_key(app_id)
+
+    def delete_api_key(self, app_id: uuid.UUID) -> None:
+        app_api_key = self.app_api_key_repository.get_by_app_id(app_id)
+        if not app_api_key:
+            raise ApiKeyNotFoundError()
+        self.app_api_key_repository.remove(app_id)

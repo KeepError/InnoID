@@ -23,6 +23,10 @@ class IAppRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def persist(self, app: App) -> App:
+        raise NotImplementedError
+
+    @abstractmethod
     def remove(self, app_id: uuid.UUID) -> Optional[App]:
         raise NotImplementedError
 

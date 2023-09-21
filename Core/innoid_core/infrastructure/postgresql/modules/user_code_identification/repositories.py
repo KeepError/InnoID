@@ -3,8 +3,8 @@ from typing import Optional
 
 from sqlalchemy.orm.session import Session
 
-from domain.modules.code_identification.entities import UserCodeIdentification
-from domain.modules.code_identification.repositories import IUserCodeIdentificationRepository
+from domain.modules.user_code_identification.entities import UserCodeIdentification
+from domain.modules.user_code_identification.repositories import IUserCodeIdentificationRepository
 from .data_mappers import UserCodeIdentificationDataMapper
 from .models import UserCodeIdentificationModel
 

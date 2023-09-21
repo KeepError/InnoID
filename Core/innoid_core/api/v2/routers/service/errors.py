@@ -13,3 +13,9 @@ class InvalidIdCodeApiError(ApiError):
     error_message = "Invalid identification code"
     error_code = 0
     http_status_code = status.HTTP_401_UNAUTHORIZED
+
+
+class ConnectionAlreadyExistsApiError(ApiError):
+    error_message = "Connection already exists"
+    error_code = 0
+    http_status_code = status.HTTP_409_CONFLICT

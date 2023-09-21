@@ -3,8 +3,8 @@ from typing import Optional
 
 from sqlalchemy.orm.session import Session
 
-from domain.modules.connection.telegram.entities import TelegramConnection
-from domain.modules.connection.telegram.repositories import ITelegramConnectionRepository
+from domain.modules.user_connection.telegram.entities import TelegramConnection
+from domain.modules.user_connection.telegram.repositories import ITelegramConnectionRepository
 from .data_mappers import TelegramConnectionDataMapper
 from .models import TelegramConnectionModel
 

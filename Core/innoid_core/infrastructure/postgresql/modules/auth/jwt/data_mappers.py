@@ -1,3 +1,5 @@
+from datetime import timezone
+
 from domain.modules.auth.jwt.entities import JWTRefreshToken
 from .models import JWTRefreshTokenModel
 
@@ -9,7 +11,7 @@ class JWTRefreshTokenDataMapper:
             token_id=model.token_id,
             user_id=model.user_id,
             hashed_value=model.hashed_value,
-            expires=model.expires,
+            expires=model.expires.replace(tzinfo=timezone.utc),
         )
 
     @staticmethod

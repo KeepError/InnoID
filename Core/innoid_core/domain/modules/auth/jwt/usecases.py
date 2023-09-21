@@ -13,9 +13,6 @@ from .entities import JWTRefreshToken
 from .errors import NotAuthenticatedError, RefreshTokenNotFoundError, RefreshTokenExpiredError, AccessTokenExpiredError
 from .repositories import IJWTRefreshTokenRepository
 
-ACCESS_TOKEN_EXPIRATION = timedelta(minutes=300)
-REFRESH_TOKEN_EXPIRATION = timedelta(days=30)
-
 
 @dataclass
 class Tokens:
@@ -68,7 +65,7 @@ class AuthJWTUseCase:
     def _generate_tokens(self, user_id: uuid.UUID) -> Tokens:
         access_token_payload = {
             "user_id": str(user_id),
-            "exp": datetime.now(tz=timezone.utc) + ACCESS_TOKEN_EXPIRATION,
+            "exp": datetime.now(tz=timezone.utc) + timedelta(seconds=settings.jwt_access_token_expires_in),
         }
         access_token = jwt.encode(payload=access_token_payload, key=settings.jwt_secret_key, algorithm="HS256")
 
@@ -78,7 +75,7 @@ class AuthJWTUseCase:
             token_id=token_id,
             user_id=user_id,
             hashed_value=refresh_token_data.hashed_value,
-            expires=datetime.now(tz=timezone.utc) + REFRESH_TOKEN_EXPIRATION,
+            expires=datetime.now(tz=timezone.utc) + timedelta(seconds=settings.jwt_refresh_token_expires_in),
         )
         self.user_refresh_token_repository.add(refresh_token_entity)
         return Tokens(access_token=access_token, refresh_token=refresh_token_data.original_value)

@@ -18,6 +18,13 @@ class UserRoleUseCase:
             roles.append(user_role.role)
         return roles
 
+    def get_role_user_ids(self, role: Role) -> list[uuid.UUID]:
+        user_ids = []
+        user_roles = self.user_role_repository.get_user_roles_by_role(role)
+        for user_role in user_roles:
+            user_ids.append(user_role.user_id)
+        return user_ids
+
     def add_role(self, user_id: uuid.UUID, role: Role) -> UserRole:
         role = UserRole(user_id=user_id, role=role)
         self.user_role_repository.add(role)
@@ -42,6 +49,13 @@ class AppRoleUseCase:
         for app_role in app_roles:
             roles.append(app_role.role)
         return roles
+
+    def get_role_app_ids(self, role: Role) -> list[uuid.UUID]:
+        app_ids = []
+        app_roles = self.app_role_repository.get_app_roles_by_role(role)
+        for app_role in app_roles:
+            app_ids.append(app_role.app_id)
+        return app_ids
 
     def add_role(self, app_id: uuid.UUID, role: Role) -> AppRole:
         role = AppRole(app_id=app_id, role=role)

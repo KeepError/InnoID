@@ -1,4 +1,4 @@
-from domain.modules.code_identification.entities import UserCodeIdentification
+from domain.modules.user_code_identification.entities import UserCodeIdentification
 from .models import UserCodeIdentificationModel
 
 

@@ -1,4 +1,4 @@
-from domain.modules.connection.telegram.entities import TelegramConnection
+from domain.modules.user_connection.telegram.entities import TelegramConnection
 from .models import TelegramConnectionModel
 
 

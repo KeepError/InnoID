@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 
 from .entities import TelegramConnection
-from .errors import ConnectionNotFoundError
+from .errors import ConnectionNotFoundError, ConnectionAlreadyExistsError
 from .repositories import ITelegramConnectionRepository
 
 
@@ -30,6 +30,10 @@ class TelegramConnectionUseCase:
             telegram_id=telegram_id,
             created=datetime.now(),
         )
+        if self.tg_connection_repository.get_by_user_id(user_id):
+            raise ConnectionAlreadyExistsError()
+        if self.tg_connection_repository.get_by_telegram_id(telegram_id):
+            raise ConnectionAlreadyExistsError()
         connection = self.tg_connection_repository.add(connection)
         return connection
 

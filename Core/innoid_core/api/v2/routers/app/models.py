@@ -18,4 +18,11 @@ class AppWithApiKey(BaseModel):
 
 class AppCreate(BaseModel):
     name: str
-    owner_id: uuid.UUID
+
+
+class AppUpdate(BaseModel):
+    name: str
+
+
+class AppResetApiKey(BaseModel):
+    app_id: uuid.UUID

@@ -10,6 +10,9 @@ class IUserRoleRepository(ABC):
     def get_user_roles(self, user_id: uuid.UUID) -> list[UserRole]:
         raise NotImplementedError
 
+    def get_user_roles_by_role(self, role: Role) -> list[UserRole]:
+        raise NotImplementedError
+
     @abstractmethod
     def add(self, user_role: UserRole) -> UserRole:
         raise NotImplementedError
@@ -22,6 +25,10 @@ class IUserRoleRepository(ABC):
 class IAppRoleRepository(ABC):
     @abstractmethod
     def get_app_roles(self, app_id: uuid.UUID) -> list[AppRole]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_app_roles_by_role(self, role: Role) -> list[AppRole]:
         raise NotImplementedError
 
     @abstractmethod

@@ -26,5 +26,9 @@ class AuthTokens(BaseModel):
 
 
 class SSOLoginResult(BaseModel):
-    tokens: AuthTokens
+    # tokens: AuthTokens
     context: SSOLoginContext
+
+
+class RefreshTokenResult(BaseModel):
+    success: bool

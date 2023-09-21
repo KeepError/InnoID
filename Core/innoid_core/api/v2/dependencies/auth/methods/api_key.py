@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import Depends
 from fastapi.security import APIKeyHeader
 
-from api.v2.dependencies.use_cases import get_auth_api_key_use_case
+from use_cases import get_auth_api_key_use_case
 from domain.modules.auth.api_key.usecases import AuthApiKeyUseCase
 from domain.errors import DomainError
 from ..common import AuthMethodResult

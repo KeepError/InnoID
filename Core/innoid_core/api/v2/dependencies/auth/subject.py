@@ -10,7 +10,7 @@ from domain.modules.user.usecases import UserUseCase
 from .common import AuthMethodResult
 from .methods.api_key import get_api_key_auth_result
 from .methods.jwt import get_jwt_auth_result
-from ..use_cases import get_user_use_case, get_app_use_case
+from use_cases import get_user_use_case, get_app_use_case
 
 
 @dataclass
