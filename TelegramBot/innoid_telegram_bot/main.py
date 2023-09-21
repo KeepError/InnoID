@@ -1,42 +1,24 @@
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+import asyncio
 
-from config import Config
-import aiohttp
+from aiogram import Bot, Dispatcher
+from aiogram.enums import ParseMode
 
-
-async def create_connection(code: int, telegram_id: str) -> None:
-    async with aiohttp.ClientSession() as session:
-        async with session.post(
-                url=f"{Config.API_URL}/v2/admin/user_id/code",
-                json={
-                    "code": code,
-                },
-        ) as response:
-            data = await response.json()
-            print(data)
-            user_id = data.get("user_id", None)
-
-        async with session.post(
-                url=f"{Config.API_URL}/v2/admin/connections/telegram",
-                json={
-                    "user_id": user_id,
-                    "telegram_id": telegram_id,
-                },
-        ) as response:
-            data = await response.json()
-            print(data)
+from routers.base import base_router
+from settings import settings
 
 
-async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await create_connection(code=context.args[0], telegram_id=str(update.message.chat.id))
-    await update.message.reply_text(
-        text="Well done!",
-    )
+async def on_startup(dispatcher: Dispatcher, bot: Bot):
+    print("Bot started")
 
 
-app = ApplicationBuilder().token(Config.TELEGRAM_BOT_TOKEN).build()
+async def main():
+    bot = Bot(token=settings.telegram_bot_token, parse_mode=ParseMode.HTML)
+    dp = Dispatcher()
+    dp.include_router(base_router)
+    dp.startup.register(on_startup)
 
-app.add_handler(CommandHandler("start", start_command))
+    await dp.start_polling(bot)
 
-app.run_polling()
+
+if __name__ == "__main__":
+    asyncio.run(main())
