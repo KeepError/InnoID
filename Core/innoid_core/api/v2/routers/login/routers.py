@@ -82,7 +82,7 @@ def get_sso_login_uri(
 ):
     uri = login_sso_use_case.get_login_uri(
         redirect_uri=sso_login_uri_request.redirect_uri,
-        context=sso_login_uri_request.context.dict()
+        context=sso_login_uri_request.context,
     )
     return api_models.SSOLoginURI(uri=uri)
 
@@ -101,7 +101,6 @@ def login_with_sso(
         redirect_uri=sso_login.redirect_uri,
         state=sso_login.state,
     )
-    context = api_models.SSOLoginContext(**sso_login_result.context)
 
     try:
         user = user_use_case.get_by_email(email=sso_login_result.user_info.email)
@@ -117,7 +116,7 @@ def login_with_sso(
     )
 
     login_result = api_models.SSOLoginResult(
-        context=context,
+        context=sso_login_result.context,
     )
     return login_result
 

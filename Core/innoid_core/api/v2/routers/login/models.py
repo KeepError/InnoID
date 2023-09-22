@@ -1,13 +1,9 @@
 from pydantic import BaseModel
 
 
-class SSOLoginContext(BaseModel):
-    pass
-
-
 class SSOLoginURIRequest(BaseModel):
     redirect_uri: str
-    context: SSOLoginContext
+    context: dict
 
 
 class SSOLoginURI(BaseModel):
@@ -27,7 +23,7 @@ class AuthTokens(BaseModel):
 
 class SSOLoginResult(BaseModel):
     # tokens: AuthTokens
-    context: SSOLoginContext
+    context: dict
 
 
 class RefreshTokenResult(BaseModel):
