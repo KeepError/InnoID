@@ -16,6 +16,7 @@ class App(BaseModel):
 
 class UserId(BaseModel):
     user_id: uuid.UUID
+    context: dict = None
 
 
 class UserIdCode(BaseModel):

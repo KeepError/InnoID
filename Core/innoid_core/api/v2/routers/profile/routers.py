@@ -60,11 +60,15 @@ def delete_user_telegram_connection(
 
 @profile_router.post("/id_code", response_model=api_models.UserIdCode)
 def create_user_id_code(
+        user_id_code_request: api_models.UserIdCodeRequest,
         auth_context: Annotated[AuthContext, Depends(AuthContextProvider(Role.USER))],
         user_code_identification_use_case: Annotated[
             UserCodeIdentificationUseCase, Depends(get_user_code_identification_use_case)],
 ):
-    identification = user_code_identification_use_case.create(user_id=auth_context.user.user_id)
+    identification = user_code_identification_use_case.create(
+        user_id=auth_context.user.user_id,
+        context=user_id_code_request.context
+    )
     return api_models.UserIdCode(code=identification.code)
 
 

@@ -28,6 +28,10 @@ class UserTelegramConnection(BaseModel):
     telegram_id: str
 
 
+class UserIdCodeRequest(BaseModel):
+    context: dict = None
+
+
 class UserIdCode(BaseModel):
     code: int
 

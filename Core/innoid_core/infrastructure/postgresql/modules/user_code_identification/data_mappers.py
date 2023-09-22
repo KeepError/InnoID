@@ -10,6 +10,7 @@ class UserCodeIdentificationDataMapper:
             user_id=model.user_id,
             created=model.created,
             code=model.code,
+            context=model.context,
         )
 
     @staticmethod
@@ -19,4 +20,5 @@ class UserCodeIdentificationDataMapper:
             user_id=entity.user_id,
             created=entity.created,
             code=entity.code,
+            context=entity.context,
         )

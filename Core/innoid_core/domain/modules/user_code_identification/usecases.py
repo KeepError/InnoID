@@ -21,15 +21,18 @@ class UserCodeIdentificationUseCase:
         self.user_code_identification_repository.remove(user_code_identification.identification_id)
         return user_code_identification
 
-    def create(self, user_id: uuid.UUID) -> UserCodeIdentification:
+    def create(self, user_id: uuid.UUID, context: dict = None) -> UserCodeIdentification:
         code = None
         while code is None or self.user_code_identification_repository.get_by_code(code):
             code = random.randint(100000, 999999)
+        if context is None:
+            context = dict()
         user_code_identification = UserCodeIdentification(
             identification_id=uuid.uuid4(),
             user_id=user_id,
             created=datetime.now(),
             code=code,
+            context=context,
         )
         user_code_identification = self.user_code_identification_repository.add(user_code_identification)
         return user_code_identification

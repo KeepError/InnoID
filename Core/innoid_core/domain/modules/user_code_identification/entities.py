@@ -9,3 +9,4 @@ class UserCodeIdentification:
     user_id: uuid.UUID
     created: datetime
     code: int
+    context: dict

@@ -69,7 +69,7 @@ def get_user_id_by_id_code(
         user_identification = user_code_identification_use_case.get_by_code(code=user_id_code.code)
     except IdentificationNotFoundError:
         raise api_errors.InvalidIdCodeApiError()
-    return api_models.UserId(user_id=user_identification.user_id)
+    return api_models.UserId(user_id=user_identification.user_id, context=user_identification.context)
 
 
 @service_router.post("/connections/telegram", response_model=api_models.UserTelegramConnection)
