@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 import aiohttp
 
 from settings import settings
@@ -36,7 +38,13 @@ async def get_app_by_id(app_id: str) -> dict:
             return data
 
 
-async def get_user_id_by_id_code(id_code: int) -> str:
+@dataclass
+class IdCodeResponse:
+    user_id: str
+    context: dict
+
+
+async def get_user_id_by_id_code(id_code: int) -> IdCodeResponse:
     async with aiohttp.ClientSession() as session:
         async with session.post(
                 url=f"{BASE_URL}/service/user_id/code",
@@ -49,7 +57,8 @@ async def get_user_id_by_id_code(id_code: int) -> str:
                 raise APIException()
             data = await response.json()
             user_id = data.get("user_id", None)
-            return user_id
+            context = data.get("context", None)
+            return IdCodeResponse(user_id=user_id, context=context)
 
 
 async def create_connection(user_id: str, telegram_id: str) -> None:
