@@ -8,3 +8,4 @@ class TelegramConnection:
     user_id: uuid.UUID
     created: datetime
     telegram_id: str
+    telegram_username: str | None

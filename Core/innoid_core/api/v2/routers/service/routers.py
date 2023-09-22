@@ -82,6 +82,7 @@ def create_telegram_connection(
         telegram_connection = telegram_connection_use_case.create(
             user_id=user_telegram_connection.user_id,
             telegram_id=user_telegram_connection.telegram_id,
+            telegram_username=user_telegram_connection.telegram_username,
         )
     except ConnectionAlreadyExistsError:
         raise api_errors.ConnectionAlreadyExistsApiError()
@@ -89,4 +90,5 @@ def create_telegram_connection(
         created=telegram_connection.created,
         user_id=telegram_connection.user_id,
         telegram_id=telegram_connection.telegram_id,
+        telegram_username=telegram_connection.telegram_username,
     )

@@ -26,6 +26,7 @@ class UserApp(BaseModel):
 class UserTelegramConnection(BaseModel):
     created: datetime
     telegram_id: str
+    telegram_username: str | None
 
 
 class UserIdCodeRequest(BaseModel):

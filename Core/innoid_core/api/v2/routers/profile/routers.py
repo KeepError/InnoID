@@ -39,7 +39,8 @@ def get_user_telegram_connection(
         raise api_errors.ConnectionNotFoundError()
     return api_models.UserTelegramConnection(
         created=telegram_connection.created,
-        telegram_id=telegram_connection.telegram_id
+        telegram_id=telegram_connection.telegram_id,
+        telegram_username=telegram_connection.telegram_username,
     )
 
 

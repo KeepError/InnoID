@@ -24,10 +24,11 @@ class TelegramConnectionUseCase:
             raise ConnectionNotFoundError()
         return connection
 
-    def create(self, user_id: uuid.UUID, telegram_id: str) -> TelegramConnection:
+    def create(self, user_id: uuid.UUID, telegram_id: str, telegram_username: str) -> TelegramConnection:
         connection = TelegramConnection(
             user_id=user_id,
             telegram_id=telegram_id,
+            telegram_username=telegram_username,
             created=datetime.now(),
         )
         if self.tg_connection_repository.get_by_user_id(user_id):

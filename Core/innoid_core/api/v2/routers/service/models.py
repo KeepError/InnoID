@@ -27,8 +27,10 @@ class UserTelegramConnection(BaseModel):
     created: datetime
     user_id: uuid.UUID
     telegram_id: str
+    telegram_username: str | None
 
 
 class UserTelegramConnectionCreate(BaseModel):
     user_id: uuid.UUID
     telegram_id: str
+    telegram_username: str | None

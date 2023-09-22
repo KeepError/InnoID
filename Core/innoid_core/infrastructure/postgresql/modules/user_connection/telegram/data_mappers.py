@@ -9,6 +9,7 @@ class TelegramConnectionDataMapper:
             user_id=model.user_id,
             created=model.created,
             telegram_id=model.telegram_id,
+            telegram_username=model.telegram_username,
         )
 
     @staticmethod
@@ -17,4 +18,5 @@ class TelegramConnectionDataMapper:
             user_id=entity.user_id,
             created=entity.created,
             telegram_id=entity.telegram_id,
+            telegram_username=entity.telegram_username,
         )

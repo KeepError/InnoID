@@ -13,3 +13,4 @@ class TelegramConnectionModel(Base):
     user_id: Union[uuid.UUID, Column] = Column(UUID(as_uuid=True), primary_key=True)
     created: Union[datetime, Column] = Column(DateTime(timezone=False), nullable=False)
     telegram_id: Union[str, Column] = Column(String, nullable=False)
+    telegram_username: Union[str, Column] = Column(String, nullable=True)
