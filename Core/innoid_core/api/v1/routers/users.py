@@ -15,7 +15,7 @@ class UserInfo(BaseModel):
     is_authorized: bool
 
 
-users_router = APIRouter(prefix="/users", tags=["users"])
+users_router = APIRouter(prefix="", tags=["users"])
 
 
 @users_router.get("/users/{telegram_id}")
