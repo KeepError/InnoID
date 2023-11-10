@@ -1,36 +1,53 @@
 version: '3.9'
 services:
-  api:
-    build: ./API
-    restart: on-failure
+  postgres:
+    image: postgres:15.3-alpine3.18
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "8001:8001"
-      - "9001:9001"
-    volumes:
-      - ./API:/api
-    env_file:
-      - .env
+      - "5432:5432"
 
-  longpoll:
-    build: ./Longpoll
-    restart: on-failure
+  core:
+    build:
+      target: production
+      context: ./Core
     ports:
-      - "8002:8002"
-      - "9002:9002"
+      - "8000:80"
     volumes:
-      - ./Longpoll:/longpoll
+      - ./Core:/source/
     env_file:
       - .env
+    depends_on:
+      - postgres
+    logging:
+      options:
+        max-size: "50m"
 
   telegram-bot:
-    build: ./Telegram-Bot
-    restart: on-failure
-    ports:
-      - "9003:9003"
+    build:
+      target: production
+      context: ./TelegramBot
     volumes:
-      - ./Telegram-Bot:/tg-bot
-    depends_on:
-      - api
-      - longpoll
+      - ./TelegramBot:/source/
     env_file:
       - .env
+    logging:
+      options:
+        max-size: "50m"
+  
+  web:
+    build:
+      context: ./Web
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_WEB_ROOT_URL: ${VITE_WEB_ROOT_URL}
+        VITE_TELEGRAM_BOT_URL: ${VITE_TELEGRAM_BOT_URL}
+    restart: on-failure
+    ports:
+      - "8001:80"
+    env_file:
+      - .env
+    logging:
+      options:
+        max-size: "50m"

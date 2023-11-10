@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "innoid-telegram-bot"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "innoid_telegram_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.3.0"
+pydantic-settings = "^2.0.3"
+aiohttp = "^3.8.5"
+aiogram = "^3.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
