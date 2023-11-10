@@ -12,10 +12,11 @@ COPY . /source/
 
 ENV PYTHONPATH=/source/innoid_core
 
-ENTRYPOINT ["uvicorn", "innoid_core.main_fastapi:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "80"]
+#ENTRYPOINT ["python", "main_api.py"]
 
-EXPOSE 8000
+EXPOSE 80
 
 FROM production as development
 
-ENTRYPOINT ["uvicorn", "innoid_core.main_fastapi:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+ENTRYPOINT ["uvicorn", "innoid_core.main_api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

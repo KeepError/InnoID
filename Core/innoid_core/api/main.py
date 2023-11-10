@@ -11,7 +11,7 @@ setup_database()
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",
+    settings.allow_origin,
 ]
 
 app.add_middleware(

@@ -2,7 +2,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    serve_port: int = 22512
+    serve_port: int = 80
+    allow_origin: str = "http://localhost:8001"
 
     postgres_connection_string: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/innoid_core"
 
