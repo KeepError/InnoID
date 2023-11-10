@@ -1,10 +1,9 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
+from starlette.responses import JSONResponse
 from pydantic import BaseModel
 
-from api.v2.dependencies.auth import AuthContext, AuthContextProvider
-from domain.modules.access_permission.usecases import AccessPermissionUseCase
 from domain.modules.user.errors import UserNotFoundError
 from domain.modules.user.usecases import UserUseCase
 from domain.modules.user_connection.telegram.errors import ConnectionNotFoundError
@@ -31,4 +30,4 @@ def get_user_by_telegram_id(
         return {"is_authorized": True}
     except (ConnectionNotFoundError, UserNotFoundError):
         is_authorized = False
-        raise HTTPException(status_code=404, detail={"error": {"code": 100}, "message": "User not found."})
+        return JSONResponse(status_code=404, content={"error": {"code": 100}, "message": "User not found."})
