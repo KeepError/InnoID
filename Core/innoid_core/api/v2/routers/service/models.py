@@ -19,6 +19,10 @@ class UserId(BaseModel):
     context: dict = None
 
 
+class UserCreate(BaseModel):
+    email: str
+
+
 class UserIdCode(BaseModel):
     code: int
 

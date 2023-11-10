@@ -41,6 +41,19 @@ def get_user_by_id(
     )
 
 
+@service_router.post("/user", response_model=api_models.User)
+def create_user(
+        auth_context: Annotated[AuthContext, Depends(AuthContextProvider(Role.SERVICE))],
+        user_use_case: Annotated[UserUseCase, Depends(get_user_use_case)],
+        user_create: api_models.UserCreate,
+):
+    user = user_use_case.create(email=user_create.email)
+    return api_models.User(
+        user_id=user.user_id,
+        email=user.email,
+    )
+
+
 @service_router.get("/app/{app_id}", response_model=api_models.App)
 def get_app_by_id(
         auth_context: Annotated[AuthContext, Depends(AuthContextProvider(Role.SERVICE))],
