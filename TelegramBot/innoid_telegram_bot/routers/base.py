@@ -21,8 +21,6 @@ async def cmd_start(message: Message, command: CommandObject):
         await message.answer("Failed to decode data.")
         return
     id_code = data.get("idCode", None)
-    # app_id = data.get("appId", None)
-    # redirect_to = data.get("redirect", None)
 
     if not id_code:
         await message.answer("Not enough data to create connection.")
@@ -39,7 +37,11 @@ async def cmd_start(message: Message, command: CommandObject):
         return
 
     try:
-        await api.create_connection(user_id, str(message.from_user.id))
+        await api.create_connection(
+            user_id=user_id,
+            telegram_id=str(message.from_user.id),
+            telegram_username=message.from_user.username,
+        )
     except api.APIException:
         await message.answer("Failed to create connection.")
         return

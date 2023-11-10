@@ -61,7 +61,7 @@ async def get_user_id_by_id_code(id_code: int) -> IdCodeResponse:
             return IdCodeResponse(user_id=user_id, context=context)
 
 
-async def create_connection(user_id: str, telegram_id: str) -> None:
+async def create_connection(user_id: str, telegram_id: str, telegram_username: str | None) -> None:
     async with aiohttp.ClientSession() as session:
         async with session.post(
                 url=f"{BASE_URL}/service/connections/telegram",
@@ -69,6 +69,7 @@ async def create_connection(user_id: str, telegram_id: str) -> None:
                 json={
                     "user_id": user_id,
                     "telegram_id": telegram_id,
+                    "telegram_username": telegram_username,
                 },
         ) as response:
             if response.status != 200:
