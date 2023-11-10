@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from api.v2.dependencies.auth import AuthContext, AuthContextProvider
@@ -19,7 +19,7 @@ class UserInfo(BaseModel):
 users_router = APIRouter(prefix="/users", tags=["users"])
 
 
-@users_router.get("/telegram/{telegram_id}", response_model=UserInfo)
+@users_router.get("/users/{telegram_id}")
 def get_user_by_telegram_id(
         telegram_id: str,
         user_use_case: Annotated[UserUseCase, Depends(get_user_use_case)],
@@ -28,7 +28,7 @@ def get_user_by_telegram_id(
     try:
         telegram_connection = telegram_connection_use_case.get_by_telegram_id(telegram_id=telegram_id)
         user = user_use_case.get_by_id(user_id=telegram_connection.user_id)
-        is_authorized = True
+        return {"is_authorized": True}
     except (ConnectionNotFoundError, UserNotFoundError):
         is_authorized = False
-    return UserInfo(is_authorized=is_authorized)
+        raise HTTPException(status_code=404, detail={"error": {"code": 100}, "message": "User not found."})

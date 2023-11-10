@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.v1 import fastapi_app as fastapi_app_v1
 from api.v2 import fastapi_app as fastapi_app_v2
 from infrastructure.postgresql.database import setup_database
 from settings import settings
@@ -23,6 +24,7 @@ app.add_middleware(
 )
 
 app.mount("/v2", fastapi_app_v2.get_app())
+app.mount("/v1", fastapi_app_v1.get_app())
 
 
 def main():
