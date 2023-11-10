@@ -1,3 +1,3 @@
-export const API_URL = "http://127.0.0.1:8000/v2";
-export const WEB_ROOT_URL = "http://localhost:3000";
-export const TELEGRAM_BOT_URL = "https://t.me/SubSonBot";
+export const API_URL = import.meta.env.VITE_API_URL;
+export const WEB_ROOT_URL = import.meta.env.VITE_WEB_ROOT_URL;
+export const TELEGRAM_BOT_URL = import.meta.env.VITE_TELEGRAM_BOT_URL;
