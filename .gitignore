@@ -7,8 +7,6 @@ __pypackages__/
 
 dist/
 
-nginx.conf
-
 *.db
 *.sqlite3
 *.sqlite3-journal
