@@ -12,8 +12,7 @@ setup_database()
 app = FastAPI()
 
 origins = [
-    settings.allow_origin,
-    "h*",
+    "*",
 ]
 
 app.add_middleware(
