@@ -70,7 +70,14 @@ def refresh_tokens(
         refresh_token=tokens.refresh_token
     )
 
-    refresh_token_result = api_models.RefreshTokenResult(success=True)
+    auth_tokens = api_models.AuthTokens(
+        access_token=tokens.access_token,
+        refresh_token=tokens.refresh_token,
+    )
+    refresh_token_result = api_models.RefreshTokenResult(
+        auth_tokens=auth_tokens,
+        success=True
+    )
 
     return refresh_token_result
 
@@ -115,7 +122,12 @@ def login_with_sso(
         refresh_token=tokens.refresh_token
     )
 
+    auth_tokens = api_models.AuthTokens(
+        access_token=tokens.access_token,
+        refresh_token=tokens.refresh_token,
+    )
     login_result = api_models.SSOLoginResult(
+        auth_tokens=auth_tokens,
         context=sso_login_result.context,
     )
     return login_result
