@@ -8,8 +8,8 @@ from domain.modules.app.usecases import AppUseCase
 from domain.modules.user.entities import User
 from domain.modules.user.usecases import UserUseCase
 from .common import AuthMethodResult
-from .methods.app_api_key import get_api_key_auth_result
-from .methods.user_jwt_cookies import get_jwt_cookie_auth_result
+from .methods.api_key import get_api_key_auth_result
+from .methods.jwt import get_jwt_auth_result
 from use_cases import get_user_use_case, get_app_use_case
 
 
@@ -20,7 +20,7 @@ class AuthenticationSubject:
 
 
 def get_authentication_subject(
-        jwt_auth_result: Annotated[AuthMethodResult, Depends(get_jwt_cookie_auth_result)],
+        jwt_auth_result: Annotated[AuthMethodResult, Depends(get_jwt_auth_result)],
         api_key_auth_result: Annotated[AuthMethodResult, Depends(get_api_key_auth_result)],
         user_use_case: Annotated[UserUseCase, Depends(get_user_use_case)],
         app_use_case: Annotated[AppUseCase, Depends(get_app_use_case)],

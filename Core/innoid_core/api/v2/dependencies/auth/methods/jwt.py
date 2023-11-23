@@ -9,7 +9,7 @@ from settings import settings
 from ..common import AuthMethodResult
 
 
-def get_jwt_cookie_auth_result(
+def get_jwt_auth_result(
         auth_jwt_use_case: Annotated[AuthJWTUseCase, Depends(get_auth_jwt_use_case)],
         access_token: Annotated[str | None, Cookie(alias=settings.jwt_access_token_name)] = None
 ) -> AuthMethodResult:

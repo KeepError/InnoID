@@ -22,10 +22,9 @@ class AuthTokens(BaseModel):
 
 
 class SSOLoginResult(BaseModel):
-    tokens: AuthTokens
+    # tokens: AuthTokens
     context: dict
 
 
 class RefreshTokenResult(BaseModel):
-    tokens: AuthTokens
     success: bool

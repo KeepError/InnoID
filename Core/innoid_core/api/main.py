@@ -26,7 +26,6 @@ app.add_middleware(
 app.mount("/v2", fastapi_app_v2.get_app())
 app.mount("/api/v2", fastapi_app_v2.get_app())
 app.mount("/v1", fastapi_app_v1.get_app())
-app.mount("/api/v1", fastapi_app_v1.get_app())
 
 
 def main():
