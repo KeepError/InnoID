@@ -36,8 +36,7 @@ def set_tokens_cookies(
         value=refresh_token,
         httponly=True,
         secure=True,
-        max_age=settings.jwt_refresh_token_expires_in,
-        path=refresh_token_url.path
+        max_age=settings.jwt_refresh_token_expires_in
     )
 
 
